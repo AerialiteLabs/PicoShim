@@ -75,7 +75,7 @@ jobs:
         wget -q "https://dl.cros.download/files/${board}/${board}.zip" -O "./${board}.zip" || exit 1
         unzip "./${board}.zip"
         shim=$(unzip -Z1 "./${board}.zip")
-        shim=$(realpath -m $"shim")
+        shim=$(realpath -m "$shim")
         rm ./${board}.zip
         sudo ./picoshim.sh "$shim" 
         cd ../
