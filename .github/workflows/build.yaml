@@ -70,7 +70,7 @@ jobs:
         set -e
         cd builder
         chmod +x ./picoshim.sh
-        sudo apt install binwalk util-linux vboot-utils e2fsprogs coreutils
+        sudo apt install binwalk util-linux vboot-utils e2fsprogs coreutils cgpt
         echo "Downloading file from https://dl.cros.download/files/${board}/${board}.zip..."
         wget -q "https://dl.cros.download/files/${board}/${board}.zip" -O "./${board}.zip" || exit 1
         unzip "./${board}.zip"
