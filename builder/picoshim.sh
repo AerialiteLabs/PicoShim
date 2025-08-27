@@ -1,7 +1,7 @@
 #!/bin/bash
 # PicoShim Builder
 # 2024
-
+set -x
 if [ $EUID -ne 0 ]; then
   echo "You MUST run this program with sudo or as root."
   exit 1
@@ -46,15 +46,15 @@ rm -rf /tmp/kernel*
 losetup -D
 
 # cleanup previous instances of picoshim, if they existed
-umount -R $initramfs  > /dev/null 2>&1
+umount -R $initramfs   2>&1
 rm -rf $initramfs
 mkdir -p $initramfs
 
-umount -R $rootfs_mnt  > /dev/null 2>&1
+umount -R $rootfs_mnt   2>&1
 rm -rf $rootfs_mnt
 mkdir -p $rootfs_mnt
 
-umount -R $state_mnt  > /dev/null 2>&1
+umount -R $state_mnt   2>&1
 rm -rf $state_mnt
 mkdir -p $state_mnt
 
@@ -63,7 +63,7 @@ rm -rf /tmp/loop0
 # the amount of headaches loop0 has caused me....
 if ! $(losetup | grep loop0); then
 	touch /tmp/loop0
-	dd if=/dev/urandom of=/tmp/loop0 bs=1 count=512 status=none > /dev/null 2>&1
+	dd if=/dev/urandom of=/tmp/loop0 bs=1 count=512 status=none  2>&1
 	losetup -P /dev/loop0 /tmp/loop0
 fi
 
@@ -88,7 +88,7 @@ kernsize=$(($(du -sb /tmp/kernel-new.bin | awk '{print $1}' | numfmt --to=iec | 
 
 echo "fdisk!"
 
-fdisk "$loopdev" <<EOF > /dev/null 2>&1 
+fdisk "$loopdev" <<EOF  2>&1 
 d
 3
 p
@@ -110,7 +110,7 @@ EOF
 dd if=/tmp/kernel-new.bin of="${loopdev}p2" bs=1M oflag=direct status=none conv=notrunc
 
 echo "creating new filesystem on rootfs"
-echo "y" | mkfs.ext2 "$loopdev"p3 -L ROOT-A > /dev/null 2>&1
+echo "y" | mkfs.ext2 "$loopdev"p3 -L ROOT-A  2>&1
 echo "mounting & moving files from initramfs to rootfs"
 mount "$loopdev"p3 "$rootfs_mnt"
 mv "$initramfs"/* "$rootfs_mnt"/
