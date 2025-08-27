@@ -1,7 +1,7 @@
 #!/bin/bash
 # PicoShim Builder
 # 2024
-set +x
+set -x
 if [ $EUID -ne 0 ]; then
   echo "You MUST run this program with sudo or as root."
   exit 1
