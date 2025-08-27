@@ -45,16 +45,10 @@ state_size="1"
 rm -rf /tmp/kernel*
 losetup -D
 
-# cleanup previous instances of picoshim, if they existed
-umount -R $initramfs   2>&1
 rm -rf $initramfs
 mkdir -p $initramfs
-
-umount -R $rootfs_mnt   2>&1
 rm -rf $rootfs_mnt
 mkdir -p $rootfs_mnt
-
-umount -R $state_mnt   2>&1
 rm -rf $state_mnt
 mkdir -p $state_mnt
 
