@@ -86,6 +86,6 @@ jobs:
       with:
         name: Picoshim ${{ inputs.tag }}
         tag_name: ${{ inputs.tag }}
-        files: ./Picoshim-${{ matrix.board }}.bin
+        files: ./picoshim-${{ matrix.board }}.bin
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
