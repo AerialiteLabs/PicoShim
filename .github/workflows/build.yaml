@@ -87,5 +87,6 @@ jobs:
         name: Picoshim ${{ inputs.tag }}
         tag_name: ${{ inputs.tag }}
         files: ./picoshim-${{ matrix.board }}.bin
+        overwrite_files: true
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
